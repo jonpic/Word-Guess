@@ -1,0 +1,11 @@
+#mainJumbotron {
+    border-radius:10px;
+    background: url("../images/banner002.jpg");
+    background-size: cover;
+    }
+
+    body {
+        background: url("../images/pboy.jpg");
+        background-size: cover;
+    }
+
