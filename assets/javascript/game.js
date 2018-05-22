@@ -1,3 +1,10 @@
+// TO DO //
+// Move the check for game won and lost off of key press after game is over.
+// Add picture of brewery when the game is won or lost.
+// Add button to restart on win or loss.
+// Add button for hints.
+
+
 var breweryArray = ["brewonex", "brewtwoxx", "brewthreexxx"];
 var activeBrewery = "";
 var guessingBrewery = [];
@@ -21,12 +28,24 @@ var checkLetter = function(guess) {
     //check if lives remain
     if (remainingGuesses === 0) {
             document.getElementById("bottomText").innerHTML = "You lost! The correct answer was " + activeBrewery;
+            computerScore++;
+            document.getElementById("computer-score").innerHTML = computerScore;
+            playing = false
+            return
         }
+    else if (guessingBrewery.join("") === activeBrewery) {
+        document.getElementById("bottomText").innerHTML = "You win!";
+        userScore = userScore + 1;
+        document.getElementById("user-score").innerHTML = userScore;
+        playing = false
+    }
     else
     {
 
     //checks if userguess has not been guessed, if it has not it adds the guess to an array to be checked next time
     if (lettersGuessed.indexOf(userGuess) === -1) {
+        console.log(userGuess + "ug");
+        console.log(activeBrewery + "ab");
         lettersGuessed.push(userGuess);
 
         //converts array to a string and prints to page
@@ -72,8 +91,10 @@ document.onkeypress = function (event) {
         //resets game back to default stage
         guessingBrewery = [];
         remainingGuesses = maxGuesses;
+        document.getElementById("userGuesses").innerHTML = remainingGuesses;
         blanks = "";
-
+        lettersGuessed = [];
+        lettersGuessedString = ""
         //Set brewery information//
         //////////////////////////
         
@@ -83,6 +104,7 @@ document.onkeypress = function (event) {
             guessingBrewery.push("_");
         }
         //sets state of game to playing
+        blanks = guessingBrewery.join(" ");
         playing = true;
         document.getElementById("blanks").innerHTML = blanks;
         
