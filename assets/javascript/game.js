@@ -5,7 +5,12 @@
 // Add button for hints.
 
 
-var breweryArray = ["brewonex", "brewtwoxx", "brewthreexxx"];
+var breweryArray = ["lagunitas", "stone", "philadelphia", "vault", "alchemist"];
+var lagHints = ["This brewery is from California.", "This brewery has a dog for a mascot.", "This brewery is famous for weed related activities."];
+var stoHints = ["This brewery is from California.", "This brewery is famous for their Enjoy By series", "This brewery has a devil/demon for a mascot."];
+var phiHints = ["This brewery is in Philadelphia.", "This brewery is famous for their Kenzinger beer", "This brewery has a large contract brewing business"];
+var vauHints = ["This brewery is in Yardley.", "This brewery makes the Mosaic Imperial IPA.", "This brewery was brought to market by ABV%"];
+var alcHints = ["This brewery is in Vermont.", "This brewery makes Heady Topper.", "This brewery is considered the best in the world by many."];
 var activeBrewery = "";
 var guessingBrewery = [];
 var guessingBreweryString = ""
@@ -82,6 +87,18 @@ var checkLetter = function(guess) {
         }
     }
 
+    $("#btn1").on("click", function (){
+        $("#hintOne").html("<span>" + lagHints[0] + "</span>");
+        console.log(lagHints[0])
+    });
+
+    $("#btn2").on("click", function (){
+        $("#hintTwo").text(lagHints[1]);
+    });
+
+    $("#btn3").on("click", function (){
+        $("#hintThree").text(lagHints[2]);
+    });
 
 
 //On any keypress selects brewery if the game has not started and wipes all info
