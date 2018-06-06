@@ -3,14 +3,10 @@
 // Add picture of brewery when the game is won or lost.
 // Add button to restart on win or loss.
 // Add button for hints.
+// refactor to make the breweries a key value pairing for brewery information
 
 
 var breweryArray = ["lagunitas", "stone", "philadelphia", "vault", "alchemist"];
-var lagHints = ["This brewery is from California.", "This brewery has a dog for a mascot.", "This brewery is famous for weed related activities."];
-var stoHints = ["This brewery is from California.", "This brewery is famous for their Enjoy By series", "This brewery has a devil/demon for a mascot."];
-var phiHints = ["This brewery is in Philadelphia.", "This brewery is famous for their Kenzinger beer", "This brewery has a large contract brewing business"];
-var vauHints = ["This brewery is in Yardley.", "This brewery makes the Mosaic Imperial IPA.", "This brewery was brought to market by ABV%"];
-var alcHints = ["This brewery is in Vermont.", "This brewery makes Heady Topper.", "This brewery is considered the best in the world by many."];
 var activeBrewery = "";
 var guessingBrewery = [];
 var guessingBreweryString = ""
@@ -42,6 +38,26 @@ var checkLetter = function(guess) {
         document.getElementById("bottomText").innerHTML = "You win!";
         userScore = userScore + 1;
         document.getElementById("user-score").innerHTML = userScore;
+        switch(activeBrewery) {
+            case "lagunitas":
+                document.getElementById("breweryImage").src ="assets/images/lagunitas.png";
+            break;
+            case "stone":
+                document.getElementById("breweryImage").src = "assets/images/stone.jpg";
+            break;
+            case "alchemist":
+                document.getElementById("breweryImage").src = "assets/images/alchemist.jpg";
+            break;
+            case "philadelphia":
+                document.getElementById("breweryImage").src = "assets/images/philadelphia.png";
+            break;
+            case "vault":
+                document.getElementById("breweryImage").src = "assets/images/vault.jpg";
+            break;
+            default:
+            document.getElementById("breweryImage").src = "assets/images/question.png";
+                break;
+        };
         playing = false
     }
     else
@@ -73,8 +89,9 @@ var checkLetter = function(guess) {
                     //removes comma used in array
                     guessingBreweryString = guessingBrewery.join(" ");
                     console.log(guessingBreweryString)
-                    document.getElementById("blanks").innerHTML = guessingBreweryString;
+                    document.getElementById("blanks").innerHTML = guessingBreweryString.toUpperCase();
                     document.getElementById("bottomText").innerHTML = "You guessed " + userGuess.toUpperCase() + ". Great job! Guess again!";
+                    
                     console.log(activeBrewery + guessingBrewery)
                 }
             }
@@ -87,26 +104,13 @@ var checkLetter = function(guess) {
         }
     }
 
-    $("#btn1").on("click", function (){
-        $("#hintOne").html("<span>" + lagHints[0] + "</span>");
-        console.log(lagHints[0])
-    });
-
-    $("#btn2").on("click", function (){
-        $("#hintTwo").text(lagHints[1]);
-    });
-
-    $("#btn3").on("click", function (){
-        $("#hintThree").text(lagHints[2]);
-    });
-
-
 //On any keypress selects brewery if the game has not started and wipes all info
 document.onkeypress = function (event) {
     if (playing === false) {
-        activeBrewery = breweryArray[Math.floor(Math.random() * 3)];
+        activeBrewery = breweryArray[Math.floor(Math.random() * breweryArray.length)];
         //resets game back to default stage
         guessingBrewery = [];
+        document.getElementById("breweryImage").src = "assets/images/question.png";
         remainingGuesses = maxGuesses;
         document.getElementById("userGuesses").innerHTML = remainingGuesses;
         blanks = "";
